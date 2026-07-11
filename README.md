@@ -12,20 +12,20 @@ Discover inspiring quotes from a variety of categories, save your favorites, and
 
 ---
 
-## ✨ Features
+## Features
 
-- 🎲 Fetch random quotes instantly
-- 🏷️ Browse quotes by category
-- 📂 "More" dropdown for additional categories
-- ❤️ Add and remove favorite quotes
-- 📋 Copy quotes to clipboard
-- ⌨️ Press **Spacebar** to fetch the next quote
-- 💾 Persists current quote, selected category, and favorites using Local Storage
-- 📱 Responsive design for desktop and mobile
+- Fetch random quotes instantly
+- Browse quotes by category
+- "More" dropdown for additional categories
+- Add and remove favorite quotes
+- Copy quotes to the clipboard
+- Press **Spacebar** to fetch the next quote
+- Persists the current quote, selected category, and favorites using Local Storage
+- Responsive design for desktop and mobile
 
 ---
 
-## 🛠️ Built With
+## Built With
 
 - React
 - Vite
@@ -37,7 +37,7 @@ Discover inspiring quotes from a variety of categories, save your favorites, and
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 Clone the repository
 
@@ -71,9 +71,9 @@ npm run build
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
-```
+```text
 src
 │
 ├── assets
@@ -95,7 +95,7 @@ src
 
 ---
 
-## 🎯 Keyboard Shortcut
+## Keyboard Shortcut
 
 | Key | Action |
 |------|--------|
@@ -103,13 +103,13 @@ src
 
 ---
 
-## 📸 Preview
+## Preview
 
 <img src="./src/assets/preview.png" alt="Quote Finder Preview"/>
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Rahul Vashist**
 
@@ -117,6 +117,6 @@ GitHub: https://github.com/Rahul-Vashistt
 
 ---
 
-## ⭐ Show your support
+## Support
 
-If you enjoyed this project, consider giving it a ⭐ on GitHub!
+If you enjoyed this project, consider giving it a star on GitHub.
