@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  --font-garamond: "EB Garamond", serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-lexend: "Lexend", sans-serif;
+}
