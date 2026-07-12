@@ -54,6 +54,7 @@ export default function App() {
     
     const nextQuote = async(selectedCategory) => {
         setLoading(true);
+        setError(null)
         console.log("Fetching:", selectedCategory);
         const apiCategory = selectedCategory === "All" ? "" : selectedCategory;
 
