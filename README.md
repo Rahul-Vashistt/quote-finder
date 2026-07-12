@@ -82,8 +82,11 @@ src
 │
 ├── components
 │   ├── Header.jsx
+│   ├── DesktopHeader.jsx
+│   ├── MobileHeader.jsx
 │   ├── QuoteActions.jsx
-│   └── QuoteDisplay.jsx
+│   ├── QuoteDisplay.jsx
+│   └── FavoritesDrawer.jsx
 │
 ├── utils
 │   ├── copyToClipboard.js

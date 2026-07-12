@@ -1,4 +1,3 @@
-import formatValue from "../utils/formatValue";
 import DesktopHeader from "./DesktopHeader";
 import MobileHeader from "./MobileHeader";
 
