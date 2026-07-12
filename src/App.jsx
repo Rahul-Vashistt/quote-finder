@@ -45,6 +45,7 @@ export default function App() {
     const moreCategories = [...new Set(categories)].filter(item => !mainCategories.includes(item) && !excludedCategories.includes(item));
 
     const [ showMore, setShowMore ] = useState(false);
+    const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
     const [ showFavorites, setShowFavorites ] = useState(false);
 
     const isFavorite = favorites.some(
@@ -67,7 +68,6 @@ export default function App() {
             console.log(result.tags);
 
             setData(result);
-            localStorage.setItem("quotes", JSON.stringify(result))
 
         } catch (err) {
             setError(`Error fetching next quote (${String(err)})`);
@@ -87,6 +87,10 @@ export default function App() {
         });
     };
 
+    const removeFavorite = (quote) => {
+        setFavorites(favoriteQuotes => favoriteQuotes.filter(favoriteQuote => favoriteQuote._id !== quote._id))
+    }
+
     const handleCategoryClick = (categoryItem = "All") => {
         console.log("Clicked:", categoryItem);
 
@@ -97,12 +101,16 @@ export default function App() {
 
     useEffect(() => {
         const fetchTags = async () => {
-            const res = await fetch("https://api.quotable.io/tags");
-            const data = await res.json();
+            try {
+                const res = await fetch("https://api.quotable.io/tags");
+                const data = await res.json();
 
-            const categoriesArr = data.map(tag => tag.name);
+                const categoriesArr = data.map(tag => tag.name);
 
-            setCategories(categoriesArr)
+                setCategories(categoriesArr)
+            } catch (err) {
+                console.log(`Error fetching tags: ${err}`)
+            }
         };
 
         fetchTags();
@@ -111,6 +119,7 @@ export default function App() {
     useEffect(() => {
         const handleSpacebar = (e) => {
             if(e.code === "Space") {
+                e.preventDefault();
                 nextQuote(category);
             }
         }  
@@ -137,48 +146,79 @@ export default function App() {
 
     useEffect(() => {
         localStorage.setItem(
+            "quotes", 
+            JSON.stringify(data))
+    }, [data])
+
+    useEffect(() => {
+        localStorage.setItem(
             "favorites",
             JSON.stringify(favorites)
         );
     }, [favorites]);
 
+    useEffect(() => {
+        if (showFavorites) {
+            setMobileMenuOpen(false);
+        }
+    }, [showFavorites]);
+
     return (
-        <div>
-            <div className={showFavorites ? "bg-black/40 blur-[3px]" : ""}>
-                <main className="min-h-screen flex flex-col ">
-                    <ToastContainer />
-                    <Header 
-                        logo={logo}
-                        style={style}
-                        category={category}
-                        mainCategories={mainCategories}
-                        moreCategories={moreCategories}
-                        handleCategoryClick={handleCategoryClick}
-                        showMore={showMore}
-                        setShowMore={setShowMore}
-                    />
+        <>
+            <main className="min-h-screen flex flex-col ">
+                <ToastContainer />
+                <Header 
+                    logo={logo}
+                    style={style}
+                    category={category}
+                    mainCategories={mainCategories}
+                    moreCategories={moreCategories}
+                    handleCategoryClick={handleCategoryClick}
+                    showMore={showMore}
+                    setShowMore={setShowMore}
+                    mobileMenuOpen={mobileMenuOpen}
+                    setMobileMenuOpen={setMobileMenuOpen}
+                />
 
-                    <QuoteDisplay
-                        error={error}
-                        loading={loading}
-                        data={data}
-                    />
+                <QuoteDisplay
+                    error={error}
+                    loading={loading}
+                    data={data}
+                />
 
-                    <QuoteActions 
-                        data={data}
-                        toggleFavorites={toggleFavorites}
-                        isFavorite={isFavorite}
-                        style={style}
-                        nextQuote={nextQuote}
-                        category={category}
-                    />
-                </main>
-            </div>
+                <QuoteActions 
+                    data={data}
+                    toggleFavorites={toggleFavorites}
+                    isFavorite={isFavorite}
+                    style={style}
+                    nextQuote={nextQuote}
+                    category={category}
+                />
+            </main>
+
+            {showFavorites && (
+                <div
+                    className="fixed inset-0 bg-black/40 backdrop-blur-xs z-40"
+                    onClick={() => setShowFavorites(false)}
+                />
+            )}
+
+            {mobileMenuOpen && (
+                <div
+                    className="fixed inset-0 bg-black/40 backdrop-blur-xs z-20"
+                    onClick={() => setMobileMenuOpen(false)}
+                />
+            )}
 
             <FavoritesDrawer 
+                className="fixed right-0 top-0 z-50"
                 showFavorites={showFavorites}
                 setShowFavorites={setShowFavorites}
+                favorites={favorites}
+                onSelectQuote={setData}
+                removeFavorite={removeFavorite}
+                setFavorites={setFavorites}
             />
-        </div>
+        </>
     )
 }
