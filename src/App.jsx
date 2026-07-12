@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import QuoteDisplay from "./components/QuoteDisplay";
 import QuoteActions from "./components/QuoteActions";
+import FavoritesDrawer from "./components/FavoritesDrawer";
 
 
 const style = {
@@ -44,6 +45,7 @@ export default function App() {
     const moreCategories = [...new Set(categories)].filter(item => !mainCategories.includes(item) && !excludedCategories.includes(item));
 
     const [ showMore, setShowMore ] = useState(false);
+    const [ showFavorites, setShowFavorites ] = useState(false);
 
     const isFavorite = favorites.some(
         item => item._id === data._id
@@ -142,34 +144,41 @@ export default function App() {
 
     return (
         <div>
-            <main className="min-h-screen flex flex-col ">
-                <ToastContainer />
-                <Header 
-                    logo={logo}
-                    style={style}
-                    category={category}
-                    mainCategories={mainCategories}
-                    moreCategories={moreCategories}
-                    handleCategoryClick={handleCategoryClick}
-                    showMore={showMore}
-                    setShowMore={setShowMore}
-                />
+            <div className={showFavorites ? "bg-black/40 blur-[3px]" : ""}>
+                <main className="min-h-screen flex flex-col ">
+                    <ToastContainer />
+                    <Header 
+                        logo={logo}
+                        style={style}
+                        category={category}
+                        mainCategories={mainCategories}
+                        moreCategories={moreCategories}
+                        handleCategoryClick={handleCategoryClick}
+                        showMore={showMore}
+                        setShowMore={setShowMore}
+                    />
 
-                <QuoteDisplay
-                    error={error}
-                    loading={loading}
-                    data={data}
-                />
+                    <QuoteDisplay
+                        error={error}
+                        loading={loading}
+                        data={data}
+                    />
 
-                <QuoteActions 
-                    data={data}
-                    toggleFavorites={toggleFavorites}
-                    isFavorite={isFavorite}
-                    style={style}
-                    nextQuote={nextQuote}
-                    category={category}
-                />
-            </main>
+                    <QuoteActions 
+                        data={data}
+                        toggleFavorites={toggleFavorites}
+                        isFavorite={isFavorite}
+                        style={style}
+                        nextQuote={nextQuote}
+                        category={category}
+                    />
+                </main>
+            </div>
+
+            <FavoritesDrawer 
+                showFavorites={showFavorites}
+                setShowFavorites={setShowFavorites}
+            />
         </div>
     )
 }
