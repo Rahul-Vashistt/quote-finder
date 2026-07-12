@@ -108,6 +108,7 @@ src
 
 ## Preview
 
+<img src="./src/assets/quoteFinder-1.png" alt="Quote Finder Preview"/>
 <img src="./src/assets/quoteFinder-2.png" alt="Quote Finder Preview"/>
 <img src="./src/assets/quoteFinderMobile-1.png" alt="Quote Finder Preview"/>
 <img src="./src/assets/quoteFinderMobile-2.png" alt="Quote Finder Preview"/>
